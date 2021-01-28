@@ -1,0 +1,1401 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Mensurando a mobilidade intergeracional educacional no Brasil - Final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Mensurando a mobilidade intergeracional educacional no
+Brasil}\label{mensurando-a-mobilidade-intergeracional-educacional-no-brasil}
+
+TODO:
+
+\begin{verbatim}
+<li>Criar cabeçalho</li>
+<li>Breve resumo</li>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sea}
+        \PY{c+c1}{\PYZsh{}from folium import plugins}
+        \PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k}{as} \PY{n+nn}{gpd}
+        
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{add\PYZus{}constant}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} carrega dataframe inicial}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}stata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{base\PYZus{}de\PYZus{}dados\PYZus{}ExerciocioI (1).dta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}     ano  co\_municipio\_residencia  co\_uf\_residencia sg\_uf\_residencia  idade  \textbackslash{}
+        0  2017                  3105905                31               MG   50.0   
+        1  2017                  4109708                41               PR   17.0   
+        2  2017                  2609600                26               PE   17.0   
+        3  2017                  2918407                29               BA   16.0   
+        4  2017                  3170107                31               MG   17.0   
+        
+           n\_pessoas\_fam  feminino  preto  branco  publico  privada   nota\_enem  \textbackslash{}
+        0              5         1      0       0      NaN      NaN  542.419983   
+        1              4         1      0       1      NaN      NaN  540.119995   
+        2              5         1      1       0      NaN      NaN  501.140015   
+        3              2         1      0       0      NaN      NaN  514.940002   
+        4              5         1      0       0      NaN      1.0  511.299988   
+        
+          educ\_pai educ\_mae renda\_fam  
+        0        C        B         B  
+        1        F        D         E  
+        2        C        F         C  
+        3        E        E         B  
+        4        E        D         C  
+\end{Verbatim}
+            
+    \section{Questão 1}\label{questuxe3o-1}
+
+{[}escrever pergunta aqui{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} as variáveis feminino, preto, branco, publico, privada só faz sentido falar da quantidade}
+        \PY{n}{variaveis} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}pessoas\PYZus{}fam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{preto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{branco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{publico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{privada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    {[}escrever sobre as quantidades identificadas no dataset{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}quantidades}
+        \PY{n}{df}\PY{p}{[}\PY{n}{variaveis}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}          idade  n\_pessoas\_fam  nota\_enem  feminino     preto    branco  \textbackslash{}
+        count  99998.0       100000.0   100000.0  100000.0  100000.0  100000.0   
+        
+               publico  privada  
+        count    133.0   2293.0  
+\end{Verbatim}
+            
+    {[}escrever sobre máx, mín, média das variáveis idade,
+n\_pessoas\_fam{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{p}{[}\PY{n}{variaveis}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}               idade  n\_pessoas\_fam      nota\_enem
+        count  99998.000000  100000.000000  100000.000000
+        mean      22.358877       3.972260     520.608032
+        std        7.261332       1.522772      79.858727
+        min       14.000000       1.000000     154.919998
+        25\%       18.000000       3.000000     467.760010
+        50\%       20.000000       4.000000     515.320007
+        75\%       24.000000       5.000000     569.840027
+        max       77.000000      20.000000     818.140015
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Apresente gráficos de densidade comparando o desempenho no ENEM dos
+  seguintes grupos:
+\end{enumerate}
+
+homens e mulheres escolas publicas e privadas pretos e brancos pais
+educados e pais não educados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} trecho para criar dataframe responsável por exibir histogramas}
+        
+        \PY{n}{df\PYZus{}densidade} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} homem / mulher}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mulher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} publico / privada}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{publico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{publico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{privada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{privada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} pretos / brancos}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pretos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{preto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brancos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{branco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} pais educados / pais não educados.}
+        \PY{c+c1}{\PYZsh{} obs1. pais com ensino fundamental 2 completo serão considerados educados }
+        \PY{c+c1}{\PYZsh{} obs2. se ao menos um dos dois forem educados os pais serão considerados educados.}
+        \PY{n}{v\PYZus{}educ} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZsh{} \PYZgt{}= Ensino Fundamental 2 }
+        \PY{n}{v\PYZus{}n\PYZus{}educ} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZsh{} \PYZlt{} Ensino Fundamental 2}
+        
+        \PY{c+c1}{\PYZsh{} se ao menos um dos dois pais forem educados (D,E,F e G), então o aluno é considerado com pais educados}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pais\PYZus{}educ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{educ\PYZus{}pai}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{v\PYZus{}educ}\PY{p}{)} \PY{o}{|} \PY{n}{df}\PY{o}{.}\PY{n}{educ\PYZus{}mae}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{v\PYZus{}educ}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df\PYZus{}densidade}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pais\PYZus{}n\PYZus{}educ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{educ\PYZus{}pai}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{v\PYZus{}n\PYZus{}educ}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{df}\PY{o}{.}\PY{n}{educ\PYZus{}mae}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{v\PYZus{}n\PYZus{}educ}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    {[}homens e mulheres{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} valores NaN removidos}
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{homem}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{mulher}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    {[}escolas publicas e privadas{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} dados da rede publica não são representativos [apenas 133 de 100k]}
+        
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{publico}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{privada}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    {[}pretos e brancos{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{pretos}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{brancos}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    {[}pais educados e pais não educados{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{pais\PYZus{}educ}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{sea}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{df\PYZus{}densidade}\PY{o}{.}\PY{n}{pais\PYZus{}n\PYZus{}educ}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{3. Monte uma tabela contendo as estimativas de β e α.
+Interpretem os resultados (magnitude e significância). Testem diferentes
+formas de medir o ranking educacional dos
+pais.}\label{monte-uma-tabela-contendo-as-estimativas-de-ux3b2-e-ux3b1.-interpretem-os-resultados-magnitude-e-significuxe2ncia.-testem-diferentes-formas-de-medir-o-ranking-educacional-dos-pais.}
+
+{[}rij =α+βRPi+eij{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} funções utilizadas para criar os clusters por estado}
+         
+         \PY{c+c1}{\PYZsh{} coluna que será utilizada para delimitar o território (sg\PYZus{}uf\PYZus{}residencia ou co\PYZus{}municipio\PYZus{}residencia)}
+         \PY{n}{group\PYZus{}column} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sg\PYZus{}uf\PYZus{}residencia}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} unidade de medida utilizada para criar os clustes (nota\PYZus{}enem)}
+         \PY{n}{grade\PYZus{}column} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nota\PYZus{}enem}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} rankings da renda, educacao dos pais e das notas dos alunos}
+         \PY{n}{income\PYZus{}ranking} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{J}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{educ\PYZus{}ranking} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{},\PYZsq{}H\PYZsq{}]   \PYZsh{} H removido da análise}
+         
+         \PY{c+c1}{\PYZsh{} ranking poderá ser alterado para testes}
+         \PY{n}{grade\PYZus{}ranking} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{},\PYZsq{}H\PYZsq{}]  \PYZsh{}}
+         
+         
+         \PY{c+c1}{\PYZsh{} função que define os limites da unidade de medida}
+         \PY{c+c1}{\PYZsh{} data: dataframe}
+         \PY{c+c1}{\PYZsh{} group\PYZus{}by: coluna utilizada para agrupar}
+         \PY{c+c1}{\PYZsh{}                Caso preenchido o ranking será contabulizado tomando apenas as notas}
+         \PY{c+c1}{\PYZsh{}                obtidas por alunos de um mesmo grupo (sg\PYZus{}uf\PYZus{}residencia ou co\PYZus{}municipio\PYZus{}residencia)}
+         \PY{c+c1}{\PYZsh{}                essa opção fará uma \PYZus{}normalização\PYZus{} das notas por localidade}
+         \PY{c+c1}{\PYZsh{} clusters: domínio do ranking}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: Retorna os limites de cada cluster para cada grupo (se informado)}
+         \PY{k}{def} \PY{n+nf}{group\PYZus{}fixed\PYZus{}range}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} colunas do range}
+             \PY{n}{col} \PY{o}{=} \PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{clusters}\PY{p}{:}
+                 \PY{n}{col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} caso não seja informado o grupo, o ranking será realizado }
+             \PY{c+c1}{\PYZsh{} utilizando todo o dataset}
+             \PY{n}{group} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group\PYZus{}by}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{fixed\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{\PYZus{}max} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]}\PY{p}{)}         \PY{c+c1}{\PYZsh{} maior nota do grupo}
+                 \PY{n}{\PYZus{}min} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]}\PY{p}{)}         \PY{c+c1}{\PYZsh{} menor nota do grupo}
+                 \PY{n}{\PYZus{}offset} \PY{o}{=} \PY{p}{(}\PY{n}{\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{\PYZus{}min}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{fixed\PYZus{}range}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{\PYZus{}min} \PY{o}{+} \PY{n}{\PYZus{}offset} \PY{o}{*} \PY{n}{c}\PY{p}{)}
+                 \PY{n}{group} \PY{o}{=} \PY{n}{group}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{fixed\PYZus{}range}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{col}\PY{p}{)}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{group}
+             
+             \PY{c+c1}{\PYZsh{} recupera os valores a serem a grupados}
+             \PY{n}{keys} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+             \PY{n}{group} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} realiza o cáculo do range de cada cluster para cada grupo}
+             \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{keys}\PY{p}{:}
+                 \PY{n}{df\PYZus{}key} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]} \PY{o}{==} \PY{n}{key}\PY{p}{]}     \PY{c+c1}{\PYZsh{} linhas de um mesmo grupo (key)}
+                 
+                 \PY{n}{fixed\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{n}{key}\PY{p}{]}
+                 \PY{n}{\PYZus{}max} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{df\PYZus{}key}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]}\PY{p}{)}         \PY{c+c1}{\PYZsh{} maior nota do grupo}
+                 \PY{n}{\PYZus{}min} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{df\PYZus{}key}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]}\PY{p}{)}         \PY{c+c1}{\PYZsh{} menor nota do grupo}
+                 \PY{n}{\PYZus{}offset} \PY{o}{=} \PY{p}{(}\PY{n}{\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{\PYZus{}min}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}  \PY{c+c1}{\PYZsh{} intervalo de cada cluster}
+                 
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{fixed\PYZus{}range}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{\PYZus{}min} \PY{o}{+} \PY{n}{\PYZus{}offset} \PY{o}{*} \PY{n}{c}\PY{p}{)}
+                 \PY{n}{group} \PY{o}{=} \PY{n}{group}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{fixed\PYZus{}range}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{col}\PY{p}{)}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{return} \PY{n}{group}
+         
+         
+         \PY{c+c1}{\PYZsh{} Rankea uma amostra a partir dos parâmetros}
+         \PY{c+c1}{\PYZsh{} data: dataframe}
+         \PY{c+c1}{\PYZsh{} group: grupo contendo os limites de cada cluster}
+         \PY{c+c1}{\PYZsh{} group\PYZus{}by: coluna utilizada para agrupar}
+         \PY{c+c1}{\PYZsh{}                Caso preenchido o ranking será contabulizado tomando apenas as notas}
+         \PY{c+c1}{\PYZsh{}                obtidas por alunos de um mesmo grupo (sg\PYZus{}uf\PYZus{}residencia ou co\PYZus{}municipio\PYZus{}residencia)}
+         \PY{c+c1}{\PYZsh{}               essa opção fará uma \PYZus{}normalização\PYZus{} das notas por localidade}
+         \PY{c+c1}{\PYZsh{} clusters: domínio do ranking}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: Retorna o valor em texto do ranking}
+         \PY{k}{def} \PY{n+nf}{ranking}\PY{p}{(}\PY{n}{row}\PY{p}{,} \PY{n}{group}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} verifica se a condição de agrupamento foi informada}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group\PYZus{}by}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}    
+                 \PY{n}{g} \PY{o}{=} \PY{n}{group}\PY{p}{[}\PY{n}{group}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]} \PY{o}{==} \PY{n}{row}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{g} \PY{o}{=} \PY{n}{group}
+         
+             \PY{c+c1}{\PYZsh{} itera entre os clusters}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{clusters}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{g}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{c}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NaN}\PY{l+s+s1}{\PYZsq{}}
+         
+         
+         \PY{c+c1}{\PYZsh{} Rankea uma amostra a partir dos parâmetros}
+         \PY{c+c1}{\PYZsh{} data: dataframe}
+         \PY{c+c1}{\PYZsh{} group: grupo contendo os limites de cada cluster}
+         \PY{c+c1}{\PYZsh{} group\PYZus{}by: coluna utilizada para agrupar}
+         \PY{c+c1}{\PYZsh{}                Caso preenchido o ranking será contabulizado tomando apenas as notas}
+         \PY{c+c1}{\PYZsh{}                obtidas por alunos de um mesmo grupo (sg\PYZus{}uf\PYZus{}residencia ou co\PYZus{}municipio\PYZus{}residencia)}
+         \PY{c+c1}{\PYZsh{}                essa opção fará uma \PYZus{}normalização\PYZus{} das notas por localidade}
+         \PY{c+c1}{\PYZsh{} clusters: domínio do ranking}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: Retorna o índice do ranking}
+         \PY{k}{def} \PY{n+nf}{ranking\PYZus{}index}\PY{p}{(}\PY{n}{row}\PY{p}{,} \PY{n}{group}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} verifica se a condição de agrupamento foi informada}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group\PYZus{}by}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{g} \PY{o}{=} \PY{n}{group}\PY{p}{[}\PY{n}{group}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]} \PY{o}{==} \PY{n}{row}\PY{p}{[}\PY{n}{group\PYZus{}by}\PY{p}{]}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{g} \PY{o}{=} \PY{n}{group}
+             
+             \PY{c+c1}{\PYZsh{} itera entre os clusters}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{n}{grade\PYZus{}column}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{g}\PY{p}{[}\PY{n}{clusters}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{c} \PY{o}{+} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+         
+         \PY{c+c1}{\PYZsh{} Adiciona colunas ao dataset}
+         \PY{c+c1}{\PYZsh{} data: dataframe}
+         \PY{c+c1}{\PYZsh{} group\PYZus{}by: coluna utilizada para agrupar}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: dataframe com novas colunas}
+         \PY{k}{def} \PY{n+nf}{add\PYZus{}columns}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} cria novas colunas para o dataset}
+             
+             \PY{n}{no\PYZus{}group\PYZus{}suffix} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}no\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{group\PYZus{}suffix} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}by}
+             
+             \PY{n}{\PYZus{}new\PYZus{}columns} \PY{o}{=} \PY{p}{[}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}renda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{no\PYZus{}group\PYZus{}suffix}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{no\PYZus{}group\PYZus{}suffix}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}suffix}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}suffix}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}renda}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}                           \PY{c+c1}{\PYZsh{} índice da renda}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{no\PYZus{}group\PYZus{}suffix}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}        \PY{c+c1}{\PYZsh{} ranking das notas sem agrupamento}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{no\PYZus{}group\PYZus{}suffix}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}       \PY{c+c1}{\PYZsh{} índice do ranking das notas sem agrupamento}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}suffix}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}           \PY{c+c1}{\PYZsh{} ranking das notas com agrupamento}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}suffix}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}        \PY{c+c1}{\PYZsh{} índice do ranking das notas com agrupamento}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}                       \PY{c+c1}{\PYZsh{} novo ranking dos pais}
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}                    \PY{c+c1}{\PYZsh{} índice do ranking dos pais}
+         
+             \PY{k}{return} \PY{n}{data}\PY{p}{,} \PY{n}{\PYZus{}new\PYZus{}columns}
+         
+         
+         \PY{c+c1}{\PYZsh{} Recupera índice do rankig dos pais}
+         \PY{c+c1}{\PYZsh{} pai: ranking de educação do pai}
+         \PY{c+c1}{\PYZsh{} mae: ranking de educação da mãe}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: retorna o maior nível de educação entre o pai/mãe}
+         \PY{k}{def} \PY{n+nf}{ranking\PYZus{}pais}\PY{p}{(}\PY{n}{pai}\PY{p}{,} \PY{n}{mae}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{educ\PYZus{}ranking}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(} \PY{n}{pai} \PY{o}{==} \PY{n}{educ\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o+ow}{or} \PY{n}{mae} \PY{o}{==} \PY{n}{educ\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{educ\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]}
+         
+         
+         \PY{c+c1}{\PYZsh{} Recupera índice do rankig dos pais}
+         \PY{c+c1}{\PYZsh{} pai: ranking de educação do pai}
+         \PY{c+c1}{\PYZsh{} mae: ranking de educação da mãe}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: retorna o maior nível de educação entre o pai/mãe}
+         \PY{k}{def} \PY{n+nf}{ranking\PYZus{}pais\PYZus{}index}\PY{p}{(}\PY{n}{pai}\PY{p}{,} \PY{n}{mae}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{educ\PYZus{}ranking}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(} \PY{n}{pai} \PY{o}{==} \PY{n}{educ\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o+ow}{or} \PY{n}{mae} \PY{o}{==} \PY{n}{educ\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{p}{(}\PY{n}{c} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         
+                 
+         \PY{c+c1}{\PYZsh{} Recupera índice do rankig da renda           }
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} return: retorna o ínidice da renda }
+         \PY{k}{def} \PY{n+nf}{ranking\PYZus{}renda\PYZus{}index}\PY{p}{(}\PY{n}{renda}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{income\PYZus{}ranking}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{renda} \PY{o}{==} \PY{n}{income\PYZus{}ranking}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{p}{(}\PY{n}{c} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}   
+                     
+         
+         
+         \PY{k}{def} \PY{n+nf}{eval\PYZus{}ranking}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} recupera os grupos a partir da condição group\PYZus{}by}
+             \PY{n}{group} \PY{o}{=} \PY{n}{group\PYZus{}fixed\PYZus{}range}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} recupera os grupos sem condição group\PYZus{}by}
+             \PY{n}{no\PYZus{}group} \PY{o}{=} \PY{n}{group\PYZus{}fixed\PYZus{}range}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}
+             
+             \PY{n}{data}\PY{p}{,} \PY{n}{new\PYZus{}columns} \PY{o}{=} \PY{n}{add\PYZus{}columns}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} itera em todas as linhas do dataset (dataframe)}
+             \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking\PYZus{}renda\PYZus{}index}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{renda\PYZus{}fam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} índice do ranking renda}
+                 
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{no\PYZus{}group}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}        \PY{c+c1}{\PYZsh{} ranking sem grupo}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking\PYZus{}index}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{no\PYZus{}group}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}  \PY{c+c1}{\PYZsh{} ínidice ranking sem grupo}
+                 
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{group}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)}       \PY{c+c1}{\PYZsh{} ranking}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking\PYZus{}index}\PY{p}{(}\PY{n}{row}\PY{p}{,}\PY{n}{group}\PY{p}{,} \PY{n}{group\PYZus{}by}\PY{p}{,} \PY{n}{clusters}\PY{p}{)} \PY{c+c1}{\PYZsh{} ínidice ranking}
+                 
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking\PYZus{}pais}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educ\PYZus{}pai}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educ\PYZus{}mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}       \PY{c+c1}{\PYZsh{} ranking educ pais}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{n}{new\PYZus{}columns}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{ranking\PYZus{}pais\PYZus{}index}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educ\PYZus{}pai}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educ\PYZus{}mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} indice ranking educ pais}
+             \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+
+
+    {[}falar sobre clusterização por estado, mostrar diferenças entre
+extremos - ex. PB e RR{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{group} \PY{o}{=} \PY{n}{group\PYZus{}fixed\PYZus{}range}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{group\PYZus{}column}\PY{p}{,} \PY{n}{grade\PYZus{}ranking}\PY{p}{)}
+         \PY{n}{no\PYZus{}group} \PY{o}{=} \PY{n}{group\PYZus{}fixed\PYZus{}range}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{grade\PYZus{}ranking}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Limites de cada ranking Brasil}
+         \PY{n}{no\PYZus{}group}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}               A           B           C           D           E           F  \textbackslash{}
+         0    249.665715  344.411431  439.157148  533.902865  628.648581  723.394298   
+         
+                     G  
+         0  818.140015  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Limites de cada ranking por estado}
+         \PY{n}{group}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    sg\_uf\_residencia           A           B           C           D  \textbackslash{}
+         0                MG  339.648568  418.457140  497.265712  576.074284   
+         1                PR  320.800001  399.680004  478.560006  557.440009   
+         2                PE  276.599993  365.859990  455.119986  544.379983   
+         3                BA  250.540004  337.819999  425.099993  512.379987   
+         4                GO  340.142848  418.605704  497.068560  575.531416   
+         5                RO  248.874289  333.888578  418.902867  503.917156   
+         6                AM  314.374285  385.528569  456.682853  527.837136   
+         7                SP  324.625719  405.511433  486.397147  567.282861   
+         8                RJ  350.651428  426.862854  503.074280  579.285706   
+         9                SC  358.639997  427.279994  495.919992  564.559989   
+         10               PB  378.648568  451.897143  525.145717  598.394291   
+         11               ES  381.608555  451.577127  521.545698  591.514269   
+         12               MA  285.779999  372.580002  459.380005  546.180008   
+         13               DF  243.734283  332.548569  421.362854  510.177139   
+         14               PI  290.188577  375.417147  460.645717  545.874287   
+         15               RS  259.351427  348.002858  436.654288  525.305719   
+         16               SE  345.011431  418.582860  492.154288  565.725717   
+         17               CE  352.222848  427.045702  501.868556  576.691411   
+         18               RN  275.148568  364.897143  454.645717  544.394291   
+         19               AL  372.191441  437.902871  503.614301  569.325732   
+         20               MT  253.428563  338.397134  423.365705  508.334276   
+         21               AP  312.279994  381.599997  450.920000  520.240003   
+         22               PA  312.259992  391.339992  470.419992  549.499991   
+         23               MS  375.202846  445.265708  515.328570  585.391432   
+         24               TO  370.348580  435.817156  501.285732  566.754307   
+         25               AC  331.779986  404.759984  477.739982  550.719979   
+         26               RR  372.637146  429.954285  487.271423  544.588562   
+         
+                      E           F           G  
+         0   654.882856  733.691428  812.500000  
+         1   636.320012  715.200014  794.080017  
+         2   633.639980  722.899976  812.159973  
+         3   599.659982  686.939976  774.219971  
+         4   653.994271  732.457127  810.919983  
+         5   588.931444  673.945733  758.960022  
+         6   598.991420  670.145704  741.299988  
+         7   648.168575  729.054289  809.940002  
+         8   655.497131  731.708557  807.919983  
+         9   633.199986  701.839983  770.479980  
+         10  671.642866  744.891440  818.140015  
+         11  661.482840  731.451412  801.419983  
+         12  632.980011  719.780014  806.580017  
+         13  598.991425  687.805710  776.619995  
+         14  631.102857  716.331427  801.559998  
+         15  613.957149  702.608579  791.260010  
+         16  639.297145  712.868574  786.440002  
+         17  651.514265  726.337119  801.159973  
+         18  634.142866  723.891440  813.640015  
+         19  635.037162  700.748592  766.460022  
+         20  593.302848  678.271419  763.239990  
+         21  589.560006  658.880009  728.200012  
+         22  628.579991  707.659991  786.739990  
+         23  655.454293  725.517155  795.580017  
+         24  632.222883  697.691459  763.160034  
+         25  623.699977  696.679975  769.659973  
+         26  601.905701  659.222839  716.539978  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df\PYZus{}clusters} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}            \PY{c+c1}{\PYZsh{} cria cópia}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}clusters = df\PYZus{}clusters[0:1000]  \PYZsh{} reduz amostra para testes}
+         
+         \PY{c+c1}{\PYZsh{} prepara os dados para regressao / rankig por cluster}
+         \PY{n}{df\PYZus{}clusters} \PY{o}{=} \PY{n}{eval\PYZus{}ranking}\PY{p}{(}\PY{n}{df\PYZus{}clusters}\PY{p}{,} \PY{n}{group\PYZus{}column}\PY{p}{,} \PY{n}{grade\PYZus{}ranking}\PY{p}{)} 
+         \PY{n}{df\PYZus{}clusters}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}  
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}     ano  co\_municipio\_residencia  co\_uf\_residencia sg\_uf\_residencia  idade  \textbackslash{}
+         0  2017                  3105905                31               MG   50.0   
+         1  2017                  4109708                41               PR   17.0   
+         2  2017                  2609600                26               PE   17.0   
+         3  2017                  2918407                29               BA   16.0   
+         4  2017                  3170107                31               MG   17.0   
+         
+            n\_pessoas\_fam  feminino  preto  branco  publico  {\ldots}  educ\_pai  educ\_mae  \textbackslash{}
+         0              5         1      0       0      NaN  {\ldots}         C         B   
+         1              4         1      0       1      NaN  {\ldots}         F         D   
+         2              5         1      1       0      NaN  {\ldots}         C         F   
+         3              2         1      0       0      NaN  {\ldots}         E         E   
+         4              5         1      0       0      NaN  {\ldots}         E         D   
+         
+           renda\_fam sq\_renda ranking\_nota\_enem\_no\_group  \textbackslash{}
+         0         B        2                          E   
+         1         E        5                          E   
+         2         C        3                          D   
+         3         B        2                          D   
+         4         C        3                          D   
+         
+            sq\_ranking\_nota\_enem\_no\_group ranking\_nota\_enem\_sg\_uf\_residencia  \textbackslash{}
+         0                              5                                  D   
+         1                              5                                  D   
+         2                              4                                  D   
+         3                              4                                  E   
+         4                              4                                  D   
+         
+            sq\_ranking\_nota\_enem\_sg\_uf\_residencia ranking\_pais  sq\_ranking\_pais  
+         0                                      4            C                3  
+         1                                      4            F                6  
+         2                                      4            F                6  
+         3                                      5            E                5  
+         4                                      4            E                5  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    {[}Realizar análise:{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} variáveis utilizadas para regressão}
+         \PY{n}{variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define variável dependente}
+         \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}
+         
+         \PY{c+c1}{\PYZsh{} demais serão explicativas}
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{variables} \PY{k}{if} \PY{n}{var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{y} \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} cria dataframe apenas com colunas necessárias}
+         \PY{n}{df\PYZus{}ols} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} modelo y = alfa + beta}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.123
+Model:                                               OLS   Adj. R-squared:                  0.122
+Method:                                    Least Squares   F-statistic:                 1.396e+04
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:49   Log-Likelihood:            -1.4234e+05
+No. Observations:                                 100000   AIC:                         2.847e+05
+Df Residuals:                                      99998   BIC:                         2.847e+05
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.9757      0.009    313.764      0.000       2.957       2.994
+sq\_ranking\_pais     0.2405      0.002    118.153      0.000       0.237       0.245
+==============================================================================
+Omnibus:                      126.067   Durbin-Watson:                   2.002
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              129.347
+Skew:                          -0.075   Prob(JB):                     8.18e-29
+Kurtosis:                       3.094   Cond. No.                         14.5
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Verifique se existem diferenças estatisticamente significantes entre
+  as estimativas de β e α considerando diferentes sub-amostras:
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} filtro escolas privadas / publicas}
+         \PY{n}{df\PYZus{}clusters\PYZus{}privada} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{privada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{df\PYZus{}clusters\PYZus{}publica} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{publico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} filtro mulher / homem}
+         \PY{n}{df\PYZus{}clusters\PYZus{}mulheres} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{df\PYZus{}clusters\PYZus{}homens} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} filtro pretos / brancos}
+         \PY{n}{df\PYZus{}clusters\PYZus{}pretos} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{preto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{df\PYZus{}clusters\PYZus{}brancos} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{branco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} cria dataframe apenas com colunas necessárias}
+         \PY{n}{df\PYZus{}ols\PYZus{}privada} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}privada}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         \PY{n}{df\PYZus{}ols\PYZus{}publica} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}publica}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         
+         \PY{n}{df\PYZus{}ols\PYZus{}mulheres} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}mulheres}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         \PY{n}{df\PYZus{}ols\PYZus{}homens} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}homens}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         
+         \PY{n}{df\PYZus{}ols\PYZus{}pretos} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}pretos}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         \PY{n}{df\PYZus{}ols\PYZus{}brancos} \PY{o}{=} \PY{n}{df\PYZus{}clusters\PYZus{}brancos}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} modelo y = alfa + beta}
+         \PY{n}{model\PYZus{}privada} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}privada}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}privada}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model\PYZus{}publica} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}publica}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}publica}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model\PYZus{}mulheres} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}mulheres}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}mulheres}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model\PYZus{}homens} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}homens}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}homens}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model\PYZus{}pretos} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}pretos}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}pretos}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model\PYZus{}brancos} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}brancos}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}brancos}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Escolas públicas vs escolas privadas (ensino médio) {[}escrever
+  análise{]}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}privada}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.030
+Model:                                               OLS   Adj. R-squared:                  0.029
+Method:                                    Least Squares   F-statistic:                     70.67
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):           7.33e-17
+Time:                                           03:18:50   Log-Likelihood:                -3028.1
+No. Observations:                                   2293   AIC:                             6060.
+Df Residuals:                                       2291   BIC:                             6072.
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.9327      0.052     56.201      0.000       2.830       3.035
+sq\_ranking\_pais     0.1052      0.013      8.406      0.000       0.081       0.130
+==============================================================================
+Omnibus:                       28.214   Durbin-Watson:                   1.982
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               29.092
+Skew:                          -0.276   Prob(JB):                     4.82e-07
+Kurtosis:                       2.976   Cond. No.                         12.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}publica}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.107
+Model:                                               OLS   Adj. R-squared:                  0.100
+Method:                                    Least Squares   F-statistic:                     15.65
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):           0.000124
+Time:                                           03:18:50   Log-Likelihood:                -179.05
+No. Observations:                                    133   AIC:                             362.1
+Df Residuals:                                        131   BIC:                             367.9
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.7264      0.255     10.674      0.000       2.221       3.232
+sq\_ranking\_pais     0.2208      0.056      3.955      0.000       0.110       0.331
+==============================================================================
+Omnibus:                        0.867   Durbin-Watson:                   2.063
+Prob(Omnibus):                  0.648   Jarque-Bera (JB):                0.886
+Skew:                          -0.009   Prob(JB):                        0.642
+Kurtosis:                       2.601   Cond. No.                         15.0
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Estudantes homens vs mulheres {[}escrever análise{]}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}mulheres}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.138
+Model:                                               OLS   Adj. R-squared:                  0.138
+Method:                                    Least Squares   F-statistic:                     9266.
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:50   Log-Likelihood:                -81215.
+No. Observations:                                  58100   AIC:                         1.624e+05
+Df Residuals:                                      58098   BIC:                         1.625e+05
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.9064      0.012    246.451      0.000       2.883       2.929
+sq\_ranking\_pais     0.2482      0.003     96.258      0.000       0.243       0.253
+==============================================================================
+Omnibus:                       68.101   Durbin-Watson:                   2.004
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               71.593
+Skew:                          -0.063   Prob(JB):                     2.84e-16
+Kurtosis:                       3.118   Cond. No.                         13.8
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}homens}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.099
+Model:                                               OLS   Adj. R-squared:                  0.099
+Method:                                    Least Squares   F-statistic:                     4591.
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:50   Log-Likelihood:                -60936.
+No. Observations:                                  41900   AIC:                         1.219e+05
+Df Residuals:                                      41898   BIC:                         1.219e+05
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               3.0998      0.016    196.145      0.000       3.069       3.131
+sq\_ranking\_pais     0.2243      0.003     67.754      0.000       0.218       0.231
+==============================================================================
+Omnibus:                       79.394   Durbin-Watson:                   1.988
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               79.980
+Skew:                          -0.103   Prob(JB):                     4.29e-18
+Kurtosis:                       3.057   Cond. No.                         15.5
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    Estudantes pretos vs brancos {[}escrever análise{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}pretos}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.072
+Model:                                               OLS   Adj. R-squared:                  0.072
+Method:                                    Least Squares   F-statistic:                     1002.
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):          8.05e-212
+Time:                                           03:18:50   Log-Likelihood:                -17830.
+No. Observations:                                  12965   AIC:                         3.566e+04
+Df Residuals:                                      12963   BIC:                         3.568e+04
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               3.1770      0.024    132.112      0.000       3.130       3.224
+sq\_ranking\_pais     0.1741      0.006     31.649      0.000       0.163       0.185
+==============================================================================
+Omnibus:                       41.700   Durbin-Watson:                   1.949
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               46.677
+Skew:                          -0.094   Prob(JB):                     7.32e-11
+Kurtosis:                       3.226   Cond. No.                         13.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}brancos}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.143
+Model:                                               OLS   Adj. R-squared:                  0.143
+Method:                                    Least Squares   F-statistic:                     5986.
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:50   Log-Likelihood:                -51559.
+No. Observations:                                  35957   AIC:                         1.031e+05
+Df Residuals:                                      35955   BIC:                         1.031e+05
+Df Model:                                              1                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.9707      0.018    167.004      0.000       2.936       3.006
+sq\_ranking\_pais     0.2748      0.004     77.366      0.000       0.268       0.282
+==============================================================================
+Omnibus:                       80.685   Durbin-Watson:                   2.001
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               81.172
+Skew:                          -0.115   Prob(JB):                     2.36e-18
+Kurtosis:                       3.030   Cond. No.                         17.2
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Inclua as variáveis de renda familiar dos pais e idade e verifique se
+  os resultados de 3. se modifi- caram. Interpretem os resultados
+\end{enumerate}
+
+    {[}escrever análise idade + renda{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} variáveis utilizadas para regressão}
+         \PY{n}{variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}renda}\PY{l+s+s1}{\PYZsq{}}
+                     \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define variável dependente}
+         \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}
+         
+         \PY{c+c1}{\PYZsh{} demais serão explicativas}
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{variables} \PY{k}{if} \PY{n}{var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{y} \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} cria dataframe apenas com colunas necessárias}
+         
+         \PY{n}{df\PYZus{}ols} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         \PY{n}{df\PYZus{}ols} \PY{o}{=} \PY{n}{df\PYZus{}ols}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} removendo linhas NaN}
+         
+         \PY{c+c1}{\PYZsh{} modelo y = alfa + beta}
+         \PY{n}{model\PYZus{}idade\PYZus{}renda} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} idade é significante (menos que as demais) e é um fator redutor.}
+         \PY{c+c1}{\PYZsh{} renda é significante e é um fator com correlação positiva.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}idade\PYZus{}renda}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.216
+Model:                                               OLS   Adj. R-squared:                  0.216
+Method:                                    Least Squares   F-statistic:                     9207.
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:50   Log-Likelihood:            -1.3667e+05
+No. Observations:                                  99998   AIC:                         2.733e+05
+Df Residuals:                                      99994   BIC:                         2.734e+05
+Df Model:                                              3                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               3.0834      0.016    198.793      0.000       3.053       3.114
+sq\_ranking\_pais     0.1237      0.002     54.217      0.000       0.119       0.128
+idade              -0.0053      0.000    -12.165      0.000      -0.006      -0.004
+sq\_renda            0.1150      0.001    109.371      0.000       0.113       0.117
+==============================================================================
+Omnibus:                      498.838   Durbin-Watson:                   2.007
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              530.655
+Skew:                          -0.148   Prob(JB):                    5.89e-116
+Kurtosis:                       3.199   Cond. No.                         126.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    {[}escrever análise apenas renda***{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} variáveis utilizadas para regressão}
+         \PY{n}{variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}renda}\PY{l+s+s1}{\PYZsq{}}
+                     \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define variável dependente}
+         \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}
+         
+         \PY{c+c1}{\PYZsh{} demais serão explicativas}
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{variables} \PY{k}{if} \PY{n}{var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{y} \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} cria dataframe apenas com colunas necessárias}
+         \PY{n}{df\PYZus{}ols} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} modelo y = alfa + beta}
+         \PY{n}{model\PYZus{}renda} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} como likelihood mudou muito pouco, }
+         \PY{c+c1}{\PYZsh{} apesar da idade ser significante não acredito que ela deva entrar na equação}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}renda}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                      OLS Regression Results                                     
+=================================================================================================
+Dep. Variable:     sq\_ranking\_nota\_enem\_sg\_uf\_residencia   R-squared:                       0.215
+Model:                                               OLS   Adj. R-squared:                  0.215
+Method:                                    Least Squares   F-statistic:                 1.372e+04
+Date:                                   Thu, 28 Jan 2021   Prob (F-statistic):               0.00
+Time:                                           03:18:50   Log-Likelihood:            -1.3675e+05
+No. Observations:                                 100000   AIC:                         2.735e+05
+Df Residuals:                                      99997   BIC:                         2.735e+05
+Df Model:                                              2                                         
+Covariance Type:                               nonrobust                                         
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               2.9295      0.009    326.277      0.000       2.912       2.947
+sq\_ranking\_pais     0.1325      0.002     61.169      0.000       0.128       0.137
+sq\_renda            0.1142      0.001    108.753      0.000       0.112       0.116
+==============================================================================
+Omnibus:                      508.968   Durbin-Watson:                   2.007
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              544.156
+Skew:                          -0.148   Prob(JB):                    6.89e-119
+Kurtosis:                       3.207   Cond. No.                         21.6
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Estimem β e α para cada estado do Brasil2. Existe alguma relação entre
+  a mobilidade intergeracional educacional e informações que vocês
+  conheçam destes estados?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} estimar vetor de betas dos estados}
+         \PY{n}{variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define variável dependente}
+         \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sq\PYZus{}ranking\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{grade\PYZus{}column}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{group\PYZus{}column}
+         
+         \PY{c+c1}{\PYZsh{} demais serão explicativas}
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{variables} \PY{k}{if} \PY{n}{var} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{y} \PY{p}{]}
+         
+         \PY{n}{ufs} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sg\PYZus{}uf\PYZus{}residencia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{uf\PYZus{}regressions} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{uf} \PY{o+ow}{in} \PY{n}{ufs}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} cria dataframe apenas com colunas necessárias}
+             \PY{n}{df\PYZus{}ols\PYZus{}uf} \PY{o}{=} \PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{n}{df\PYZus{}clusters}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sg\PYZus{}uf\PYZus{}residencia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{uf}\PY{p}{]}\PY{p}{[}\PY{n}{variables}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} modelo y = alfa + beta}
+             \PY{n}{model\PYZus{}uf} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}uf}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df\PYZus{}ols\PYZus{}uf}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}   
+             \PY{c+c1}{\PYZsh{}print(model\PYZus{}uf.summary())}
+             \PY{c+c1}{\PYZsh{}print(model\PYZus{}uf.params)}
+             \PY{c+c1}{\PYZsh{}break}
+             \PY{n}{alfa} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n}{beta} \PY{o}{=} \PY{k+kc}{None}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}uf}\PY{o}{.}\PY{n}{params}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{alfa} \PY{o}{=} \PY{n}{model\PYZus{}uf}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{model\PYZus{}uf}\PY{o}{.}\PY{n}{params}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{beta} \PY{o}{=} \PY{n}{model\PYZus{}uf}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} 
+             \PY{n}{row} \PY{o}{=} \PY{p}{[}\PY{n}{uf}\PY{p}{,} \PY{n}{alfa}\PY{p}{,} \PY{n}{beta}\PY{p}{]}
+             \PY{n}{uf\PYZus{}regressions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}uf\PYZus{}regressions}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [['MG', 2.915757134809362, 0.2507595626731515],
+          ['PR', 3.0661643544213195, 0.24315744069718453],
+          ['PE', 3.2052275185896533, 0.21737076560726432],
+          ['BA', 3.5958609155110675, 0.2069421688484071],
+          ['GO', 2.67952713795145, 0.2655288567903341],
+          ['RO', 3.685769368440823, 0.174221234016307],
+          ['AM', 2.995368165397987, 0.2105449537831156],
+          ['SP', 2.9286967705210984, 0.2482741153779493],
+          ['RJ', 2.563771185515715, 0.30134299185503516],
+          ['SC', 2.741631511604097, 0.2856382256564334],
+          ['PB', 2.3990313270110346, 0.21722688350417607],
+          ['ES', 2.419038755820993, 0.2749815736048962],
+          ['MA', 3.1345440106501328, 0.1786293963863766],
+          ['DF', 3.4760143771297876, 0.2746194576327061],
+          ['PI', 3.0405232132086484, 0.23165680771878092],
+          ['RS', 3.71043798994749, 0.20171248082808033],
+          ['SE', 2.7514095782103922, 0.24514377203357313],
+          ['CE', 2.582150624917956, 0.27572013549261287],
+          ['RN', 3.3507128045506915, 0.18518021521678948],
+          ['AL', 2.3059863103628846, 0.283379011752231],
+          ['MT', 3.5818382830765603, 0.20473213977835147],
+          ['AP', 3.3348244408868912, 0.1741838309997644],
+          ['PA', 3.065916792283267, 0.1948430634063661],
+          ['MS', 2.4429563922167405, 0.2330199150252441],
+          ['TO', 2.4431407786339623, 0.21447127714598924],
+          ['AC', 3.0512691838203856, 0.1355157591628495],
+          ['RR', 2.162276822729534, 0.3074249626886297]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Prepara os dados}
+         
+         \PY{c+c1}{\PYZsh{} carrega arquivo de mapas (fonte IBGE)}
+         \PY{n}{fp} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{br\PYZus{}unidades\PYZus{}da\PYZus{}federacao//BR\PYZus{}UF\PYZus{}2019.shp}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} transforma dados shpfile para dataframe}
+         \PY{n}{map\PYZus{}df} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{fp}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} transforma tabela de alfas / betas em dataframe}
+         \PY{n}{df\PYZus{}uf\PYZus{}regressions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{uf\PYZus{}regressions}\PY{p}{,} 
+                                          \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigla\PYZus{}uf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alfa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} faz o join entre os dois dataframes}
+         \PY{n}{merged} \PY{o}{=} \PY{n}{map\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SIGLA\PYZus{}UF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}uf\PYZus{}regressions}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigla\PYZus{}uf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Gera heat map}
+         
+         \PY{c+c1}{\PYZsh{} set a variable that will call whatever column we want to visualise on the map}
+         \PY{n}{variable} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} set the range for the choropleth}
+         \PY{n}{vmin}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{df\PYZus{}uf\PYZus{}regressions}\PY{o}{.}\PY{n}{beta}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{df\PYZus{}uf\PYZus{}regressions}\PY{o}{.}\PY{n}{beta}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} create figure and axes for Matplotlib}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{merged}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{column}\PY{o}{=}\PY{n}{variable}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} remove the axis}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} add a title}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mobilidade Intergeracional no Brasil \PYZhy{} Betas por UF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontdict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontweight}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} create an annotation for the data source}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fonte: regressão linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{08}\PY{p}{)}\PY{p}{,} \PY{n}{xycoords}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure fraction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verticalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}555555}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Create colorbar as a legend}
+         \PY{n}{sm} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{ScalarMappable}\PY{p}{(}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{Normalize}\PY{p}{(}\PY{n}{vmin}\PY{o}{=}\PY{n}{vmin}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{n}{vmax}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} empty array for the data range}
+         \PY{n}{sm}\PY{o}{.}\PY{n}{\PYZus{}A} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} add the colorbar to the figure}
+         \PY{n}{cbar} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{sm}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}saving our map as .png file.}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{map\PYZus{}export.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
